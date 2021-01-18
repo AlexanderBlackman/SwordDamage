@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace SwordDamage
+namespace DamageCalculator
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -21,24 +21,42 @@ namespace SwordDamage
     public partial class MainWindow : Window
     {
         Random random = new Random();
-        Damage swordDamage = new Damage();
+        Damage swordDamage;
+
 
         public MainWindow()
         {
             InitializeComponent();
-            swordDamage.SetMagic(magicbox.IsChecked.Value);
-            swordDamage.SetFlaming(magicbox.IsChecked.Value);
-            RollDice();
+      //      swordDamage.SetMagic(magicbox.IsChecked.Value);
+       //     swordDamage.SetFlaming(magicbox.IsChecked.Value);
+            BladeDamage bladeDamage = new BladeDamage(RollDice(3));
+            ArrowDamage arrowDamage = new ArrowDamage(RollDice(1));
         }
-
-        public void RollDice()
+        /// <summary>
+        /// Returns the sum of some dice.
+        /// </summary>
+        /// <param name="number">How many dice</param>
+        /// <param name="faces">How many faces</param>
+        /// <returns></returns>
+  /*      public int Dice(int number = 1, int faces = 6)
         {
-            swordDamage.Roll = random.Next(1, 7) + random.Next(1, 7) + random.Next(1, 7);
-            swordDamage.SetFlaming(flamingbox.IsChecked.Value);
-            swordDamage.SetMagic(magicbox.IsChecked.Value);
-            DisplayDamage();
+            int result = 0;
+            for (int i = 0; i <= number; i++)
+            {
+                result += random.Next(1, faces + 1);
+            }
+            return result;
         }
-
+  */
+        public int RollDice(int number = 1, int faces = 6)
+        {
+            int result = 0;
+            for (int i = 0; i <= number; i++)
+            {
+                result += random.Next(1, faces + 1);
+            }
+            return result;
+        }
         void DisplayDamage()
         {
             damageResultBox.Text = "Rolled " + swordDamage.Roll + " for " + swordDamage.TotalDamage + " HP";
@@ -51,25 +69,26 @@ namespace SwordDamage
 
         private void flamingbox_Checked(object sender, RoutedEventArgs e)
         {
-            swordDamage.SetFlaming(true);
+            swordDamage.Flaming = true;
             DisplayDamage();
         }
 
         private void flamingbox_Unchecked(object sender, RoutedEventArgs e)
         {
-            swordDamage.SetFlaming(false);
+            swordDamage.Flaming = false;
             DisplayDamage();
         }
 
         private void magicbox_Checked(object sender, RoutedEventArgs e)
         {
-            swordDamage.SetMagic(true);
+            swordDamage.Magic = true;
             DisplayDamage();
         }
 
         private void Magic_Unchecked(object sender, RoutedEventArgs e)
         {
-            swordDamage.SetMagic(false);
+            //Remember properties are set like variables, not methods
+            swordDamage.Magic = false;
             DisplayDamage();
         }
     }
