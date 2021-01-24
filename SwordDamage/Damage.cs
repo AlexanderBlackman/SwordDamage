@@ -5,28 +5,17 @@ using System.Diagnostics;
 
 namespace DamageCalculator
 {
-    public class Damage
+    abstract class WeaponDamage
     {
-        #region Properties, consts and Variables
+        public int Damage { get; protected set; }
 
-        // WHERE IS ROLL SET???
         private int roll;
-        public int Roll {
-            get { return roll; }
-            set {
-                roll = value;
-                CalculateDamage();
-            }
-        }
-
-        public int TotalDamage { get; protected set; }
-        private bool flaming;
-        public bool Flaming 
+        public int Roll
         {
-            get { return flaming; }
+            get { return roll; }
             set
             {
-                flaming = value;
+                roll = value;
                 CalculateDamage();
             }
         }
@@ -41,47 +30,26 @@ namespace DamageCalculator
                 CalculateDamage();
             }
         }
-        #endregion
 
-        /// <summary>
-        /// Calculates Damage based on the current state.
-        /// </summary>
-        protected virtual void CalculateDamage()
+        private bool flaming;
+        public bool Flaming
         {
-        /*    decimal magicMultiplier = 1M;
-            //if(something)  is short for if (something == true)
-            if (magic) magicMultiplier = 1.75M;
-
-            TotalDamage = BASE_DAMAGE;
-            TotalDamage = (int)(Roll * magicMultiplier) + BASE_DAMAGE; 
-            
-            if(flaming) TotalDamage += FLAME_DAMAGE;
-            Debug.WriteLine($"CalculateDamage finished: {TotalDamage}(roll: {Roll})");
-        */
+            get { return flaming; }
+            set
+            {
+                flaming = value;
+                CalculateDamage();
+            }
         }
-        /// <summary>
-        /// The constructor calculates damage based on an initial roll, 
-        /// and default (false) values for flaming/magic
-        /// </summary>
-        /// <param name="startingRoll"></param>
-        public  Damage(int startingRoll)
+
+        protected abstract void CalculateDamage();
+
+        public WeaponDamage(int startingRoll)
         {
             roll = startingRoll;
             CalculateDamage();
         }
-
     }
- /*   public int RollDice(int noOfDice, int noOfSides = 6)
-    {
-        int total = 0;
-        Random dice = new Random();
-        for (int i = 0; i <= noOfDice; i++)
-        {
-            total += dice.Next(1, noOfSides);
-        }
-        return total;
-
-    }*/
 }
     
 

@@ -21,7 +21,7 @@ namespace DamageCalculator
     public partial class MainWindow : Window
     {
         Random random = new Random();
-        Damage swordDamage;
+        
 
 
         public MainWindow()
@@ -48,6 +48,8 @@ namespace DamageCalculator
             return result;
         }
   */
+
+
         public int RollDice(int number = 1, int faces = 6)
         {
             int result = 0;
@@ -57,9 +59,22 @@ namespace DamageCalculator
             }
             return result;
         }
+
+   /*     public void selectWeapon()
+        {
+            WeaponDamage chosenWeapon;
+            switch (weaponTypeBox.SelectedItem)
+            {
+                case "Blade Damage":
+                    WeaponDamage chosenWeapon = magic ;
+
+                default:
+                    break;
+            }
+        }*/
         void DisplayDamage()
         {
-            damageResultBox.Text = "Rolled " + swordDamage.Roll + " for " + swordDamage.TotalDamage + " HP";
+            damageResultBox.Text = "Rolled " + swordDamage.Roll + " for " + swordDamage.Damage + " HP";
         }
 
         private void rollButton_Click(object sender, RoutedEventArgs e)
@@ -69,7 +84,7 @@ namespace DamageCalculator
 
         private void flamingbox_Checked(object sender, RoutedEventArgs e)
         {
-            swordDamage.Flaming = true;
+            this.Flaming = true;
             DisplayDamage();
         }
 
